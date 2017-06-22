@@ -38,8 +38,11 @@ for (var row = 1; row < gameField.length; row++) {
 	for (var columnSpot = 0; columnSpot < gameField[row].length; columnSpot++) {
 	 	if (gameField[row - 1][columnSpot] !== gameField[row][columnSpot]) {
 	 		console.log("no winner in column: " + columnSpot);
+	 		columnMatch = false;
 	 		break;
 	 	}
+
+	 	if (columnMatch === true && )
 	 	
 	 } 
 	
