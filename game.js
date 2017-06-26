@@ -1,8 +1,69 @@
 let gameField = [
 	["O", "X", null],
-	["O", null, null],
-	["O", "O", "O"]
+	["X", "O", null],
+	["O", "X", "O"]
 ]
+
+
+
+// This checks the diagonal rows.
+
+// Transpos
+// 2 ways to do this. Transpos the diagonals into rows.
+// I need to do it in two directions.
+
+// Counter.
+// check how many in a row we can get with a counter. 
+// I need to keep in mind on undefind array spots. 
+
+function transposDiag_To_Row(gameField, gameFieldLength) {
+	let down = [];
+	let up = [];
+
+	// This makes 3 new arrays within down.
+	for (var i = 0; i < gameField.length; i++) {
+		down.push([]);
+		up.push([]);
+	}
+
+	for (var i = 0; i < gameField.length; i++) {
+			for (var j = 0; j < gameFieldLength; j++) {
+
+			let Insert = 
+			columnFlipArray[j].push(gameField[i][j]);
+		};
+	};
+	console.log(down);
+};
+
+
+// for (var row = 0; row < gameField.length; row++) {
+	
+// 	let matchWinNum = 3;
+// 	let counter = 0;
+// 	let player = null;
+
+// 	for (var col = 0; col < gameField[row].length; col++) {
+
+
+// 		for (var checkNr = 0; checkNr < matchWinNum; CheckNr++) {
+// 			// let down = gameField[checkNr][checkNr];
+// 			// let nextDown = gameField[checkNr + 1][checkNr + 1];
+
+			
+
+// 			// let up = gameField[checkNr + 1][checkNr];
+// 			// let nextUp = gameField[checkNr - 1][checkNr + 1];
+
+// 			if(up === undefined || nextDown === undefined || ) {
+
+// 			} 
+
+// 		}
+		
+// 	}
+// }
+
 
 // This checks the rows.
 for (var row = 0; row < gameField.length; row++) {
@@ -30,14 +91,10 @@ for (var row = 0; row < gameField.length; row++) {
 	}
 }
 
-// This checks the diagonal rows.
-
-
-
 // This function checks the colums.
 // This transpositions the gamefield so the same check script works.
 // Flipping the matrix! There is no spoon :) 
-function transposGameField(gameField, gameFieldLength) {
+function transposCol_To_Row(gameField, gameFieldLength) {
 	let columnFlipArray = [];
 
 	// This makes the nessasery amount of empty array within the
@@ -83,7 +140,7 @@ function transposGameField(gameField, gameFieldLength) {
 	}
 }
 
-transposGameField(gameField, 3)
+transposCol_To_Row(gameField, 3)
 
 
 
