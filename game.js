@@ -1,66 +1,53 @@
 let gameField = [
 	["O", "X", "O"],
-	["X", "X", null],
+	["X", "O", null],
 	["O", "X", "O"]
 ]
 
 // This checks the diagonal rows in a 2d matrix of 3 x 3.
 let rowAmount = 3;
 let counter = 0;
-let player = null;
 
-let flatDiagonal = [];
+// Check diag downwards.
+// function downDiag(gamefield) {
+// 	for (var checkNr = 0; checkNr < rowAmount - 1; checkNr++) {
+// 		let down = gameField[checkNr][checkNr];
+// 		let nextDown = gameField[checkNr + 1][checkNr + 1];
 
-// for (var i = 2; i < gameField.length; i++) {
-// [i]
+// 		if(down === nextDown) {
+// 			counter++;
+// 			console.log("One diagonal match has been found.\nDiagdown row starts at row: " + checkNr);
+
+// 			if(counter === 2 && down !== null) {
+// 				console.log("Winner is: " + down + " DownDiagonal, start row: " + (checkNr - 1));
+// 				break;
+// 			}
+// 		} else {
+// 			console.log("No diagonal match found at downdiagonal row starting at row: " + checkNr);
+// 			counter = 0;
+// 			break;
+// 		}
+// 	}
 // }
-
-// function transposDiagonal_To_Row(level) {
-// 	let extraRows; 
-// 	// if level === 1,  add 2 empty arrays
-// 	// if level === 2,  add 3 empty arrays
-// 	// if level === 3,  add 4 empty arrays 
-// 	return extraRows;
-// }
-
-// // This works for 3 x 3. 
-// // I need a calculation in the place of the 2 if i want to increment 
-// // matrix size.
-// let row_diagonal_relation = gameField.Length + 2;
-// ///////
-
-// for (var i = 0; i < gameField.length + row_diagonal_relation; i++) {
-// 	flatDiagonal.push(["derp"]); 
-// };
-// console.log(flatDiagonal);
+// downDiag(gameField);
 
 
-for (var checkNr = 0; checkNr < rowAmount - 1; checkNr++) {
-	let down = gameField[checkNr][checkNr];
-	let nextDown = gameField[checkNr + 1][checkNr + 1];
+// Check diag upwards.
+function upDiag(gamefield) {
+	let col;
 
-	// let up = gameField[checkNr + 1][checkNr];
-	// let nextUp = gameField[checkNr - 1][checkNr + 1];
-
-	if(nextDown === undefined) {
-		console.log("The edge of the matrix has been found.")
-		break;
-	} else {
-		if(down === nextDown) {
-			counter++;
-			player = down;
-			console.log("One diagonal match has been found.\nDiagonal row starts at row: " + checkNr);
-
-			if(counter === 2 && down !== null) {
-				console.log("Winner is: " + down + " DownDiagonal, start row: " + (checkNr - 1));
-				break;
-			}
-		} else {
-			console.log("No diagonal match found at diagonal row starting at row: " + checkNr);
-			counter = 0;
+	for (var row = 2; row >= 0; row--) {
+		if(row === 2) {
+			col = row - 2;
 		}
 	}
 }
+upDiag(gameField);
+
+// gameField[2][0]
+// gameField[1][1]
+// gameField[0][2]
+
 
 // // This checks the rows.
 // for (var row = 0; row < gameField.length; row++) {
