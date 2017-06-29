@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////
+// This script is full of console.logs so I can track the srcipt returns.
+////////////////////////////////////////////////////////////////////////
+
 let gameField = [
 	["O", "X", "O"],
 	["X", "X", null],
@@ -129,14 +133,3 @@ checkDownDiag(gameField);
 checkUpDiag(gameField);
 checkRows(gameField);
 checkColumns(gameField, 3);
-
-
-
-
-
-
-
-
-
-
-	
