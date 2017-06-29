@@ -1,7 +1,7 @@
 let gameField = [
-	["O", "X", "O"],
-	["X", "X", null],
-	["O", "X", "O"]
+	[null, null, null],
+	[null, null, null],
+	[null, null, null]
 ]
 
 // The diagonal checks only work for matrixes of 3 X 3 :(
@@ -125,10 +125,50 @@ function checkColumns(gameField, gameFieldLength) {
 	}
 }
 
-checkDownDiag(gameField);
-checkUpDiag(gameField);
-checkRows(gameField);
-checkColumns(gameField, 3);
+function playGame(player, row, column) {
+	gameField[row][column] = player;
+
+	if(player === "X") {
+		playerTurn = "O";
+	} else if(player === "O") {
+		playerTurn = "X";
+	}
+
+	checkDownDiag(gameField);
+	checkUpDiag(gameField);
+	checkRows(gameField);
+	checkColumns(gameField, 3);
+	UI();
+}
+
+let playerTurn = null;
+
+function UI() {
+	console.log("\nWelcome to TicTacToe!\n");
+	console.log(gameField[0]);
+	console.log(gameField[1]);
+	console.log(gameField[2]);
+
+
+	if(playerTurn === null) {
+		console.log("\nPlease enter X or O.");
+		console.log("Like this: playGame('X', rowNumber, columnNumber);")
+	} else {
+		console.log("It is " + playerTurn + "'s turn.")
+		console.log("Please enter: " + playerTurn);
+		console.log("Like this: playGame('" + playerTurn + "' , rowNumber, columnNumber);");
+	}
+
+}
+UI();
+playGame("X", 0, 0);
+playGame("X", 1, 0);
+playGame("X", 2, 0);
+
+
+
+
+
 
 
 
