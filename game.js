@@ -17,14 +17,12 @@ function checkDownDiag(gamefield) {
 
 		if(down === nextDown) {
 			counter++;
-			console.log("One diagonal match has been found.\nDiagdown row starts at row: " + checkNr);
 
 			if(counter === 2 && down !== null) {
-				console.log("Winner is: " + down + " DownDiagonal, start row: " + (checkNr - 1));
+				winnerFound = down;
 				break;
 			}
 		} else {
-			console.log("No diagonal match found at downdiagonal row starting at row: " + checkNr);
 			counter = 0;
 			break;
 		}
@@ -40,10 +38,8 @@ function checkUpDiag(gamefield) {
 	if (first === second && 
 		second === third && 
 		first !== null) {
-		console.log("Match found in upDiag starting row nr: " + 2);
-	} else {
-		console.log("No match found in upDiag starting row nr: " + 2);
-	}
+		winnerFound = first;
+	} 
 }
 
 // This checks the rows.
@@ -58,17 +54,14 @@ function checkRows(gamefield) {
 			
 			if(player === gameField[row][col]) {
 				counter++
-				console.log("counter +1");
 
 				if(player !== null && counter === matchWinNum) {
-					console.log("Winner is: " + player + " row nr: " + row);
-					// return player;
+					winnerFound = player;
 				}	
 
 			} else {
 				player = gameField[row][col];
 				counter = 1;
-				console.log("No winner in row: " + row)
 			}		
 		}
 	}
@@ -94,7 +87,6 @@ function checkColumns(gameField, gameFieldLength) {
 			columnFlipArray[j].push(gameField[i][j]);
 		};
 	};
-	console.log(columnFlipArray);
 
 	// This is the same script for checking rows but moded for columns.
 	for (var row = 0; row < columnFlipArray.length; row++) {
@@ -107,41 +99,48 @@ function checkColumns(gameField, gameFieldLength) {
 			
 			if(player === columnFlipArray[row][col]) {
 				counter++
-				console.log("counter +1");
 
 				if(player !== null && counter === matchWinNum) {
 					// Columns are now rows so I print row numbers.
-					console.log("Winner is: " + player + " col nr: " + row);
-					// return player;
+					winnerFound = player;
 					break;
 				}	
 
 			} else {
 				player = columnFlipArray[row][col];
 				counter = 1;
-				console.log("No winner in col: " + row)
 			}		
 		}
 	}
 }
 
 function playGame(player, row, column) {
-	gameField[row][column] = player;
 
-	if(player === "X") {
+	if(player === playerTurn || playerTurn === null) {
+		gameField[row][column] = player;
+
+		if(player === "X") {
 		playerTurn = "O";
-	} else if(player === "O") {
-		playerTurn = "X";
-	}
+		} else if(player === "O") {
+			playerTurn = "X";
+		}
 
-	checkDownDiag(gameField);
-	checkUpDiag(gameField);
-	checkRows(gameField);
-	checkColumns(gameField, 3);
-	UI();
+		checkDownDiag(gameField);
+		checkUpDiag(gameField);
+		checkRows(gameField);
+		checkColumns(gameField, 3);
+		UI();
+
+	} else {
+		UI();
+	}
+	
 }
 
+
+
 let playerTurn = null;
+let winnerFound = null;
 
 function UI() {
 	console.log("\nWelcome to TicTacToe!\n");
@@ -153,6 +152,12 @@ function UI() {
 	if(playerTurn === null) {
 		console.log("\nPlease enter X or O.");
 		console.log("Like this: playGame('X', rowNumber, columnNumber);")
+	}
+
+	if(winnerFound !== null) {
+		console.log("Winner is player: " + winnerFound);
+		console.log("Thanks for playing");
+		console.log("Game Over");
 	} else {
 		console.log("It is " + playerTurn + "'s turn.")
 		console.log("Please enter: " + playerTurn);
@@ -160,10 +165,9 @@ function UI() {
 	}
 
 }
+
 UI();
-playGame("X", 0, 0);
-playGame("X", 1, 0);
-playGame("X", 2, 0);
+
 
 
 
