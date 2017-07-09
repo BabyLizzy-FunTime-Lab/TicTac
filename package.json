@@ -1,0 +1,27 @@
+{
+  "name": "tictac",
+  "version": "1.0.0",
+  "description": "Tic Tac Toe game for browser.",
+  "main": "game.js",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BabyLizzy-FunTime-Lab/TicTac.git"
+  },
+  "keywords": [
+    "game",
+    "TicTacToe"
+  ],
+  "author": "José Rasmussen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BabyLizzy-FunTime-Lab/TicTac/issues"
+  },
+  "homepage": "https://github.com/BabyLizzy-FunTime-Lab/TicTac#readme"
+}
