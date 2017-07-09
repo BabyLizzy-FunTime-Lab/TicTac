@@ -135,7 +135,8 @@ function drawCheck(gameField, gameFieldLength) {
   }
 };
 
-function playGame(player, row, column) {
+function playGame(playerInput, row, column) {
+	let player = playerInput.toUpperCase();
 
 	if(player === playerTurn || playerTurn === null) {
 		gameField[row][column] = player;
