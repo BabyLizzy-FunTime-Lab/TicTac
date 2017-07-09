@@ -4,6 +4,8 @@ let gameField = [
 	[null, null, null]
 ]
 
+let playerTurn = null;
+
 // The diagonal checks only work for matrixes of 3 X 3 :(
 
 // Check diag downwards.
@@ -19,8 +21,7 @@ function checkDownDiag(gamefield) {
 			counter++;
 
 			if(counter === 2 && down !== null) {
-				winnerFound = down;
-				break;
+				return true;
 			}
 		} else {
 			counter = 0;
@@ -38,7 +39,7 @@ function checkUpDiag(gamefield) {
 	if (first === second && 
 		second === third && 
 		first !== null) {
-		winnerFound = first;
+		return true;
 	} 
 }
 
@@ -56,7 +57,7 @@ function checkRows(gamefield) {
 				counter++
 
 				if(player !== null && counter === matchWinNum) {
-					winnerFound = player;
+					return true;
 				}	
 
 			} else {
@@ -102,8 +103,7 @@ function checkColumns(gameField, gameFieldLength) {
 
 				if(player !== null && counter === matchWinNum) {
 					// Columns are now rows so I print row numbers.
-					winnerFound = player;
-					break;
+					return true;
 				}	
 
 			} else {
@@ -114,57 +114,91 @@ function checkColumns(gameField, gameFieldLength) {
 	}
 }
 
+// This check for draw.
+function drawCheck(gameField, gameFieldLength) {
+  let gameFieldPositions = gameFieldLength * gameFieldLength;
+  let counter = 0;
+
+  // If all the positions are not null this return true.
+  // The logic is that someone should win before this happends.
+  for (var row = 0; row < gameField.length; row++) {
+    for (var col = 0; col < gameField[row].length; col++) {
+      if(gameField[row][col] === null) {
+        return false;        
+      } else if(gameField[row][col] !== null) {
+        counter++;
+        if(gameFieldPositions === counter) {
+          	return true;
+        }
+      }
+    }
+  }
+};
+
 function playGame(player, row, column) {
 
 	if(player === playerTurn || playerTurn === null) {
 		gameField[row][column] = player;
 
 		if(player === "X") {
-		playerTurn = "O";
+			playerTurn = "O";
 		} else if(player === "O") {
 			playerTurn = "X";
 		}
 
-		checkDownDiag(gameField);
-		checkUpDiag(gameField);
-		checkRows(gameField);
-		checkColumns(gameField, 3);
-		UI();
+		if( checkDownDiag(gameField) === true ||
+	      	checkUpDiag(gameField) === true ||
+	      	checkRows(gameField) === true ||
+	      	checkColumns(gameField, 3) === true) {
+	      		UI(player);
+	      		return;
+	    // Draw check.
+	    } else if(drawCheck(gameField, 3) === true) {
+	      UI("draw");
+	      return;
+	    } else {
+	      checkDownDiag(gameField)
+	      checkUpDiag(gameField)
+	      checkRows(gameField)
+	      checkColumns(gameField, 3)
+	      UI();
+	    }
 
 	} else {
 		UI();
-	}
-	
-}
+	}	
+};
 
-
-
-let playerTurn = null;
-let winnerFound = null;
-
-function UI() {
+function UI(statusCheck) {
 	console.log("\nWelcome to TicTacToe!\n");
 	console.log(gameField[0]);
 	console.log(gameField[1]);
 	console.log(gameField[2]);
 
+	let status = statusCheck || false;
 
 	if(playerTurn === null) {
 		console.log("\nPlease enter X or O.");
 		console.log("Like this: playGame('X', rowNumber, columnNumber);")
 	}
 
-	if(winnerFound !== null) {
-		console.log("Winner is player: " + winnerFound);
+	if( status === "X" || status === "O") {
+		console.log("Winner is player: " + status);
 		console.log("Thanks for playing");
 		console.log("Game Over");
-	} else {
+	} 
+
+	if(status === false && playerTurn !== null) {
 		console.log("It is " + playerTurn + "'s turn.")
 		console.log("Please enter: " + playerTurn);
 		console.log("Like this: playGame('" + playerTurn + "' , rowNumber, columnNumber);");
 	}
 
-}
+	if(status === "draw") {
+	    console.log("------DRAW!!------");
+	    console.log("Thanks for playing.\n    Game Over")
+  	}
+};
 
 UI();
 
