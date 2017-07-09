@@ -112,10 +112,32 @@ function checkColumns(gameField, gameFieldLength) {
 	}
 };
 
+// This check for draw.
+function drawCheck(gameField, gameFieldLength) {
+	let gameFieldPositions = gameFieldLength * gameFieldLength;
+	let counter = 0;
+
+	// If all the positions are not null this return true.
+	// The logic is that someone should win before this happends.
+	for (var row = 0; row < gameField.length; row++) {
+		for (var col = 0; col < gameField[row].length; col++) {
+			if(gameField[row][col] === null) {
+				return false;				 
+			} else if(gameField[row][col] !== null) {
+				counter++;
+				if(gameFieldPositions === counter) {
+					return true;
+				}
+			}
+		}
+	}
+};
+
 module.exports = {
 	checkDownDiag, 
 	checkUpDiag, 
 	checkRows, 
 	checkColumns,
+	drawCheck,
 	gameField
 };

@@ -27,7 +27,7 @@ function UI(gameStatus) {
 			console.log("Row and column numbers start at 0.");
 			// This prompts the user.
 			prompt.get(['playCharacter', 'rowNumber', 'columnNumber'], function (err, result) {
-				playGame(result.playCharacter, result.rowNumber, result.columnNumber);
+				playGame(result.playCharacter.toUpperCase(), result.rowNumber, result.columnNumber);
 			});
 		// Game in progress.
 		} else {
@@ -35,7 +35,7 @@ function UI(gameStatus) {
 			console.log("Please enter: " + playerTurn);
 			// This prompts the user.
 			prompt.get(['playCharacter', 'rowNumber', 'columnNumber'], function (err, result) {
-				playGame(result.playCharacter, result.rowNumber, result.columnNumber);
+				playGame(result.playCharacter.toUpperCase(), result.rowNumber, result.columnNumber);
 			});
 		} 
 	}
@@ -47,15 +47,21 @@ function UI(gameStatus) {
 		console.log("Please enter: " + playerTurn);
 		// This prompts the user.
 		prompt.get(['playCharacter', 'rowNumber', 'columnNumber'], function (err, result) {
-			playGame(result.playCharacter, result.rowNumber, result.columnNumber);
+			playGame(result.playCharacter.toUpperCase(), result.rowNumber, result.columnNumber);
 		});
+	}
+
+	// This is the draw message.
+	if(status === "draw") {
+		console.log("------DRAW!!------");
+		console.log("Thanks for playing.\n    Game Over")
 	}
 
 	// This is the winner message.
 	if(status === "X" || status === "O") {
-		console.log("Winner is player: " + winner);
-		console.log("Thanks for playing");
-		console.log("Game Over");
+		console.log("Winner is player: " + status);
+		console.log("Thanks for playing.");
+		console.log("     Game Over");
 	}
 };
 
@@ -92,6 +98,11 @@ function playGame(player, row, column) {
 			gameLogic.checkRows(gameLogic.gameField) === true ||
 			gameLogic.checkColumns(gameLogic.gameField, 3) === true) {
 			UI(player);
+			return;
+		// Draw check.
+		} else if(gameLogic.drawCheck(gameLogic.gameField, 3) === true) {
+			UI("draw");
+			return;
 		} else {
 			gameLogic.checkDownDiag(gameLogic.gameField)
 			gameLogic.checkUpDiag(gameLogic.gameField)
