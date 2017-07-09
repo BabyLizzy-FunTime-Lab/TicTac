@@ -26,7 +26,7 @@ function checkDownDiag(gamefield) {
 			break;
 		}
 	}
-}
+};
 
 // Check diag upwards.
 function checkUpDiag(gamefield) {
@@ -39,7 +39,7 @@ function checkUpDiag(gamefield) {
 		first !== null) {
 		return true;
 	} 
-}
+};
 
 // This checks the rows.
 function checkRows(gamefield) {
@@ -64,7 +64,7 @@ function checkRows(gamefield) {
 			}		
 		}
 	}
-}
+};
 
 // This function checks the colums.
 // This transpositions the gamefield so the same check script works.
@@ -110,7 +110,7 @@ function checkColumns(gameField, gameFieldLength) {
 			}		
 		}
 	}
-}
+};
 
 module.exports = {
 	checkDownDiag, 
