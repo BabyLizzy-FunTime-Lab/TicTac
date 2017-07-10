@@ -4,10 +4,10 @@ let gameField = [
 	[null, null, null]
 ]
 
+// This variable is used to keep track of whose turn it is.
 let playerTurn = null;
 
 // The diagonal checks only work for matrixes of 3 X 3 :(
-
 // Check diag downwards.
 function checkDownDiag(gamefield) {
 	let rowAmount = 3;
@@ -102,7 +102,6 @@ function checkColumns(gameField, gameFieldLength) {
 				counter++
 
 				if(player !== null && counter === matchWinNum) {
-					// Columns are now rows so I print row numbers.
 					return true;
 				}	
 
@@ -147,6 +146,7 @@ function playGame(playerInput, row, column) {
 			playerTurn = "X";
 		}
 
+		// This checks if someone won.
 		if( checkDownDiag(gameField) === true ||
 	      	checkUpDiag(gameField) === true ||
 	      	checkRows(gameField) === true ||
@@ -155,16 +155,15 @@ function playGame(playerInput, row, column) {
 	      		return;
 	    // Draw check.
 	    } else if(drawCheck(gameField, 3) === true) {
-	      UI("draw");
-	      return;
+	      	UI("draw");
+	      	return;
 	    } else {
-	      checkDownDiag(gameField)
-	      checkUpDiag(gameField)
-	      checkRows(gameField)
-	      checkColumns(gameField, 3)
-	      UI();
+	      	checkDownDiag(gameField)
+	      	checkUpDiag(gameField)
+	      	checkRows(gameField)
+	      	checkColumns(gameField, 3)
+	      	UI();
 	    }
-
 	} else {
 		UI();
 	}	
@@ -178,29 +177,35 @@ function UI(statusCheck) {
 
 	let status = statusCheck || false;
 
+	// This shows up when the game starts for the first time.
+	// The player can choose to play as X or O.
 	if(playerTurn === null) {
 		console.log("\nPlease enter X or O.");
 		console.log("Like this: playGame('X', rowNumber, columnNumber);")
 	}
 
+	// This is the winner message.
 	if( status === "X" || status === "O") {
 		console.log("Winner is player: " + status);
 		console.log("Thanks for playing");
 		console.log("Game Over");
 	} 
 
+	// This shows op when the game is in progress and there are no winners.
 	if(status === false && playerTurn !== null) {
 		console.log("It is " + playerTurn + "'s turn.")
 		console.log("Please enter: " + playerTurn);
 		console.log("Like this: playGame('" + playerTurn + "' , rowNumber, columnNumber);");
 	}
 
+	// This is the draw message.
 	if(status === "draw") {
 	    console.log("------DRAW!!------");
 	    console.log("Thanks for playing.\n    Game Over")
   	}
 };
 
+// The game starts by running the UI function.
 UI();
 
 
